@@ -10,7 +10,7 @@ class Event(db.Model):
   __tablename__ = 'events'
 
   id = db.Column(db.Integer, primary_key=True)
-  date = db.Column(db.String())
+  date = db.Column(db.Date())
   start_time = db.Column(db.String())
   duration = db.Column(db.String())
   description = db.Column(db.String())
