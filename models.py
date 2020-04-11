@@ -1,10 +1,17 @@
-from app import db
 from sqlalchemy.dialects.postgresql import JSON
+from flask import Flask, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import app
+import os
+
+app = Flask(__name__)
 
 ma = Marshmallow(app)
+db = SQLAlchemy(app)
+db.init_app(app)
 
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 class Event(db.Model):
   __tablename__ = 'events'
