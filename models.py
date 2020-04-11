@@ -1,5 +1,10 @@
 from app import db
 from sqlalchemy.dialects.postgresql import JSON
+from flask_marshmallow import Marshmallow
+import app
+
+ma = Marshmallow(app)
+
 
 class Event(db.Model):
   __tablename__ = 'events'
@@ -24,3 +29,7 @@ class Event(db.Model):
 
   def __repr__(self):
     return '<id {}>'.format(self.id)
+
+class EventSchema(ma.ModelSchema):
+  class Meta:
+    model = Event
