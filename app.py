@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from models import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import gardener
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -21,6 +22,13 @@ def current_events(methods=['GET', 'POST']):
   output = event_schema.dump(events)
   return jsonify({'data': output})
 
-
+@app.route('/api/v1/seed')
+def seed():
+  import gardener
+  return """
+    <h1>Data successfully seeded!</h1>
+    <p>Visit -- api/v1/EVENTS -- to see updated information</p>
+  """
+  
 if __name__ == '__main__':
   app.run()
