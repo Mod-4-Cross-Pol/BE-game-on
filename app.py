@@ -14,12 +14,21 @@ db.init_app(app)
 def home_page():
   return "Honey I'm home and I have an API"
 
-@app.route('/api/v1/events')
-def current_events(methods=['GET', 'POST']):
+@app.route('/api/v1/events', methods=['GET'])
+def current_events():
   events = Event.query.all()
   event_schema = EventSchema(many=True)
   output = event_schema.dump(events)
   return jsonify({'data': output})
+
+@app.route('/api/v1/events/create', methods=['POST'])
+def create_events():
+  
+  
+  # events = Event.query.all()
+  # event_schema = EventSchema(many=True)
+  # output = event_schema.dump(events)
+  # return jsonify({'data': output})
 
 
 if __name__ == '__main__':
