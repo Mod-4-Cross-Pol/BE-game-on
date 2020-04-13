@@ -4,6 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from models import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from datetime import datetime
 # import gardener
 
 app = Flask(__name__)
@@ -16,14 +17,26 @@ parser = reqparse.RequestParser()
 # parser.add_argument('params')
 
 
-# @app.route('/')
-# @app.route('/api/v1')
-# def home_page():
-#   return "Honey I'm home and I have an API"
+@app.route('/')
+@app.route('/api/v1')
+def home_page():
+  return "Honey I'm home and I have an API"
+
+# @app.route('api/v1/events?date=<date>')
+# def events_by_date():
+
 
 class Events(Resource):
   def get(self):
-    events = Event.query.all()
+    if request.args.get('date'):
+      string_date = request.args.get('date')
+      to_date = datetime.strptime(string_date, '%Y-%m-%d').date()
+      # print(to_date)
+      events = Event.query.filter(Event.date==to_date)
+      # events = db.session.select([Event]).where(Event.date==request.args.get('date'))
+      # print(events)
+    else:
+      events = Event.query.all()
     event_schema = EventSchema(many=True)
     output = event_schema.dump(events)
     return jsonify({'data': output})
@@ -60,26 +73,7 @@ class Events(Resource):
 
 
 api.add_resource(Events, '/api/v1/events')
-
-
-
-
-# @app.route('/api/v1/events', methods=['GET'])
-# def current_events():
-#   events = Event.query.all()
-#   event_schema = EventSchema(many=True)
-#   output = event_schema.dump(events)
-#   return jsonify({'data': output})
-
-
-# @app.route('/api/v1/events/create', methods=['POST'])
-# def create_events():
-  
-  
-  # events = Event.query.all()
-  # event_schema = EventSchema(many=True)
-  # output = event_schema.dump(events)
-  # return jsonify({'data': output})
+# api.add_resource(EventsByDate, '/api/v1/events?date=<date>')
 
 @app.route('/api/v1/seed')
 def seed():
