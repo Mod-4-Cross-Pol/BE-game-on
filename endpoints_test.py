@@ -2,6 +2,8 @@ import requests
 import unittest
 import json
 from app import app
+from dotenv import load_dotenv
+load_dotenv()
 
 class TestApp(unittest.TestCase):
     def setUp(self):
