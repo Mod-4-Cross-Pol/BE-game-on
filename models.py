@@ -12,7 +12,7 @@ ma = Marshmallow(app)
 db = SQLAlchemy(app)
 db.init_app(app)
 
-app.config.from_object(os.getenv['APP_SETTINGS'])
+app.config.from_object("config.ProductionConfig")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 class Event(db.Model):
