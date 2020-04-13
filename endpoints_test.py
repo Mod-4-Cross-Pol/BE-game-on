@@ -2,6 +2,7 @@ import requests
 import unittest
 import json
 from app import app
+import gardener
 
 class TestApp(unittest.TestCase):
     def setUp(self):
@@ -20,11 +21,11 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.headers['Content-Type'], 'application/json')
         
         json_data = json.loads(response.data)
-        self.assertEqual(json_data['data'][0]['activity'], 'Roller Hockey')
+        self.assertEqual(json_data['data'][0]['activity'], 'Basketball')
         
         array_of_keys = list(json_data['data'][0].keys())
         
-        self.assertEqual(len(array_of_keys), 11)
+        self.assertEqual(len(array_of_keys), 12)
         self.assertEqual(array_of_keys.pop(0), 'activity')
         # self.assertEqual(response.json(), 'data')
         # print(response.json())
@@ -64,8 +65,11 @@ class TestApp(unittest.TestCase):
                   'current_participant_count': 6, 
                   'max_participant_count': 10, 
                   'activity': 'volley ball', 
-                  'equipment': 'net, ball'}
+                  'equipment': 'net, ball',
+                  'skill_level': 'Beginner'}
 
         response = self.app.post('/api/v1/events', data=params, headers=headers)
         self.assertEqual(response.status_code, 200)
 
+# https://maps.googleapis.com/maps/api/geocode/json?address=denver, co&key=AIzaSyDOjyLjv9JyVnJZbPjCy5bNv0o3Sph-6k8
+#  > results > formatted_address > location > {:lat, :long}
