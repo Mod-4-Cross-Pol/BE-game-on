@@ -2,7 +2,6 @@ import requests
 import unittest
 import json
 from app import app
-import gardener
 
 class TestApp(unittest.TestCase):
     def setUp(self):
