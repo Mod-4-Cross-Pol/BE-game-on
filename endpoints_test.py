@@ -70,6 +70,3 @@ class TestApp(unittest.TestCase):
 
         response = self.app.post('/api/v1/events', data=params, headers=headers)
         self.assertEqual(response.status_code, 200)
-
-# https://maps.googleapis.com/maps/api/geocode/json?address=denver, co&key=AIzaSyDOjyLjv9JyVnJZbPjCy5bNv0o3Sph-6k8
-#  > results > formatted_address > location > {:lat, :long}
