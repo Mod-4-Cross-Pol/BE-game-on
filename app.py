@@ -23,19 +23,12 @@ parser = reqparse.RequestParser()
 def home_page():
   return "Honey I'm home and I have an API"
 
-# @app.route('api/v1/events?date=<date>')
-# def events_by_date():
-
-
 class Events(Resource):
   def get(self):
     if request.args.get('date'):
       string_date = request.args.get('date')
       to_date = datetime.strptime(string_date, '%Y-%m-%d').date()
-      # print(to_date)
       events = Event.query.filter(Event.date==to_date)
-      # events = db.session.select([Event]).where(Event.date==request.args.get('date'))
-      # print(events)
     else:
       events = Event.query.all()
     event_schema = EventSchema(many=True)
