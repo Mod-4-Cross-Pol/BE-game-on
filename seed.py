@@ -14,7 +14,8 @@ event1 = Event(
 	max_participant_count = 10,
 	activity = 'Basketball',
 	equipment = 'nets, puck',
-	skill_level = "Beginner"
+	skill_level = "Beginner",
+	attending = False
 )
 db.session.add(event1)
 
@@ -29,7 +30,8 @@ event2 = Event(
 	max_participant_count = 20,
 	activity = 'Kickball',
 	equipment = 'bases, ball',
-	skill_level = "Expert"
+	skill_level = "Expert",
+	attending = False
 )
 db.session.add(event2)
 
@@ -45,7 +47,8 @@ event3 = Event(
 	max_participant_count = 35,
 	activity = 'Miscellaneous',
 	equipment = '',
-	skill_level = "Beginner"
+	skill_level = "Beginner",
+	attending = False
 )
 db.session.add(event3)
 

@@ -30,8 +30,9 @@ class Event(db.Model):
   activity = db.Column(db.String())
   equipment = db.Column(db.String())
   skill_level = db.Column(db.String())
+  attending = db.Column(db.Boolean(), default=False)
 
-  def __init__(self, date, start_time, duration, description, location, lat_long, current_participant_count, max_participant_count, activity, equipment, skill_level):
+  def __init__(self, date, start_time, duration, description, location, lat_long, current_participant_count, max_participant_count, activity, equipment, skill_level, attending):
     self.date = date
     self.start_time = start_time
     self.duration = duration
@@ -43,6 +44,7 @@ class Event(db.Model):
     self.activity = activity
     self.equipment = equipment
     self.skill_level = skill_level
+    self.attending = attending
 
   def __repr__(self):
     return '<id {}>'.format(self.id)
