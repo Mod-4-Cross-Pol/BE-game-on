@@ -25,7 +25,7 @@ class TestApp(unittest.TestCase):
         
         array_of_keys = list(json_data['data'][0].keys())
         
-        self.assertEqual(len(array_of_keys), 12)
+        self.assertEqual(len(array_of_keys), 13)
         self.assertEqual(array_of_keys.pop(0), 'activity')
         # self.assertEqual(response.json(), 'data')
         # print(response.json())

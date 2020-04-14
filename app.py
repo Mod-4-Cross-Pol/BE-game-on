@@ -59,6 +59,7 @@ class Events(Resource):
     current_participant_count = request.args.get('current_participant_count')
     start_time = request.args.get('start_time')
     skill_level = request.args.get('skill_level')
+    attending = request.args.get('attending')
 
     new_event = Event(
                       date = date, 
@@ -71,7 +72,8 @@ class Events(Resource):
                       max_participant_count = max_participant_count,
                       activity = activity,
                       equipment = equipment,
-                      skill_level = skill_level
+                      skill_level = skill_level,
+                      attending = attending
                     )
 
     db.session.add(new_event)
