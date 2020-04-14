@@ -7,23 +7,33 @@ from flask_marshmallow import Marshmallow
 from datetime import datetime
 import geo_service
 from dotenv import load_dotenv
-load_dotenv()
-
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 api = Api(app)
+load_dotenv()
 
 parser = reqparse.RequestParser()
-# parser.add_argument('params')
-
 
 @app.route('/')
 @app.route('/api/v1')
 def home_page():
   return "Honey I'm home and I have an API"
+
+# def delete(self):
+@app.route('/api/v1/events/<int:event_id>', methods=['DELETE'])
+def delete_event(event_id):
+  id = event_id
+  event = Event.query.filter_by(id=id).first()
+  db.session.delete(event)
+  db.session.commit()
+  return """
+      <h1>Event Successfully Deleted!</h1>
+    """
+
+  # import code; code.interact(local=dict(globals(), **locals()))
 
 class Events(Resource):
   def get(self):
@@ -66,21 +76,18 @@ class Events(Resource):
 
     db.session.add(new_event)
     db.session.commit()
-
-    
-
+    return """
+      <h1>Event Successfully Created!</h1>
+    """
 
 api.add_resource(Events, '/api/v1/events')
-# api.add_resource(EventsByDate, '/api/v1/events?date=<date>')
 
 @app.route('/api/v1/seed')
 def seed():
-  import gardener
+  import seed
   return """
-    <h1>Data successfully seeded!</h1>
-    <p>Visit -- api/v1/EVENTS -- to see updated information</p>
+    <h1>Data Successfully Seeded!</h1>
   """
-  
 
 if __name__ == '__main__':
   app.run()
