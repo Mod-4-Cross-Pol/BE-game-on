@@ -60,7 +60,7 @@ class TestApp(unittest.TestCase):
                   'time': '1230', 
                   'duration': '1:30', 
                   'description': 'playing volleyball at wash park. need 4!', 'location': 'Wash Park', 
-                  'lat_long': '39.631,-104.973', 
+                  'location': 'Wash Park', 
                   'current_participant_count': 6, 
                   'max_participant_count': 10, 
                   'activity': 'volley ball', 
