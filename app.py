@@ -6,8 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from datetime import datetime
 import geo_service
+from dotenv import load_dotenv
+load_dotenv()
 
-# import gardener
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])

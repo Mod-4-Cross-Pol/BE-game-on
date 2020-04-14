@@ -3,6 +3,8 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
