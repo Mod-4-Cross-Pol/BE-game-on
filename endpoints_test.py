@@ -14,13 +14,14 @@ class TestApp(unittest.TestCase):
 
     def test_events_index_requests(self):
         headers = {'Content-Type': 'application/json'}
+        self.app.get('/api/v1/seed')
         response = self.app.get('/api/v1/events', headers=headers)
         
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers['Content-Type'], 'application/json')
         
         json_data = json.loads(response.data)
-        self.assertEqual(json_data['data'][0]['activity'], 'Roller Hockey')
+        self.assertEqual(json_data['data'][0]['activity'], 'Basketball')
         
         array_of_keys = list(json_data['data'][0].keys())
         
@@ -68,5 +69,5 @@ class TestApp(unittest.TestCase):
         #           'skill_level': 'Beginner'}
 
         response = self.app.post('/api/v1/events?date=2020-04-13&time=1230&duration=1:30&description=playing volleyball at wash park. need 4!&location=Wash Park&current_participant_count=6&max_participant_count=10&activity=volley ball&equipment=net, ball&skill_level=Beginner', headers=headers)
-        
+
         self.assertEqual(response.status_code, 200)
