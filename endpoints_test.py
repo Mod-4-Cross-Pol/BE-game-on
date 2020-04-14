@@ -14,7 +14,7 @@ class TestApp(unittest.TestCase):
 
     def test_events_index_requests(self):
         headers = {'Content-Type': 'application/json'}
-        self.app.get('/api/v1/seed')
+       
         response = self.app.get('/api/v1/events', headers=headers)
         
         self.assertEqual(response.status_code, 200)
