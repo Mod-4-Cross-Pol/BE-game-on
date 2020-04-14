@@ -22,18 +22,30 @@ parser = reqparse.RequestParser()
 def home_page():
   return "Honey I'm home and I have an API"
 
-# def delete(self):
 @app.route('/api/v1/events/<int:event_id>', methods=['DELETE'])
 def delete_event(event_id):
   id = event_id
-  event = Event.query.filter_by(id=id).first()
+  event = Event.query.filter_by(id=id)[0]
   db.session.delete(event)
   db.session.commit()
   return """
       <h1>Event Successfully Deleted!</h1>
     """
 
-  # import code; code.interact(local=dict(globals(), **locals()))
+@app.route('/api/v1/events/<int:event_id>', methods=['PATCH'])
+def add_participant(event_id):
+  id = event_id
+  event = Event.query.filter_by(id=id)[0]
+  if event.current_participant_count < event.max_participant_count:
+    event.current_participant_count += 1
+    db.session.commit()
+    return """
+        <h1>Participant Successfully Added!</h1>
+      """
+  else:
+    return """
+        <h1>Max Participants Reached!</h1>
+      """
 
 class Events(Resource):
   def get(self):
