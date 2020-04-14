@@ -3,6 +3,8 @@ import app
 from flask import jsonify
 from models import *
 import googlemaps
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def find_coordinates(location):
