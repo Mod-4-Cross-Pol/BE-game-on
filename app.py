@@ -5,6 +5,8 @@ from models import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from datetime import datetime
+import geo_service
+
 # import gardener
 
 app = Flask(__name__)
@@ -41,7 +43,7 @@ class Events(Resource):
     duration = request.args.get('duration')
     equipment = request.args.get('equipment')
     location = request.args.get('location')
-    # lat_long = GoogleService.new.get_coords(request.args.get('location'))
+    lat_long = geo_service.find_coordinates(location)
     max_participant_count = request.args.get('max_participant_count')
     current_participant_count = request.args.get('current_participant_count')
     start_time = request.args.get('start_time')
@@ -53,7 +55,7 @@ class Events(Resource):
                       duration = duration, 
                       description = description,
                       location = location, 
-                      lat_long = '39.761,-105.012',
+                      lat_long = lat_long,
                       current_participant_count = current_participant_count,
                       max_participant_count = max_participant_count,
                       activity = activity,
