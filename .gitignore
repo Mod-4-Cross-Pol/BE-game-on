@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.flaskenv
+*.pyc
+*.pyo
+env/
+env*
+.cache/
+.pytest_cache/
+.vscode
+htmlcov/
+.coverage
+.coverage.*
+*,cover
