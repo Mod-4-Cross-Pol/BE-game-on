@@ -3,11 +3,11 @@ Host:       Heroku
 Language:   Python
 Framework:  Flask 
 Database:   SQLAlchemy
-**GameOnBE: 'https://game-on-pro.herokuapp.com'**
+GameOnBE: 'https://game-on-pro.herokuapp.com'
 
 ### Formatting
-- The GameOnBE App follows REST API convention, displaying data in JavaScript Object Notation(JSON).
-- Each collection is returned within a 'data:' hash
+- Base URL for all endpoints: 'http://game-on-pro.herokuapp.com'
+- Each collection is returned within a hash that has a key of 'data' and a value of an array, containing objects returned in a hash format.
 - Example:
 _request_: GET 'http://game-on-pro.herokuapp.com/api/v1/events'
 _response body_: { 
@@ -50,11 +50,12 @@ _response body_: {
   - :activity
   - :description
   - :location
+  - :lat_long
   - :start_time
   - :duration
   - :max_participant_count
   - :current_participant_count
-  - :lat_long (in process)
+  - :skill_level
 
 **Events Index By Date**
 - _Method_: ["GET"]
