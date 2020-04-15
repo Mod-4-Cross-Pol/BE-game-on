@@ -38,6 +38,7 @@ def add_participant(event_id):
   event = Event.query.filter_by(id=id)[0]
   if event.current_participant_count < event.max_participant_count:
     event.current_participant_count += 1
+    event.attending = True
     db.session.commit()
     return """
         <h1>Participant Successfully Added!</h1>
