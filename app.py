@@ -36,12 +36,21 @@ def delete_event(event_id):
 def add_participant(event_id):
   id = event_id
   event = Event.query.filter_by(id=id)[0]
-  if event.current_participant_count < event.max_participant_count:
+  current_players = event.current_participant_count
+  max_players = event.max_participant_count
+  if current_players < max_players and event.attending == False:
     event.current_participant_count += 1
     event.attending = True
     db.session.commit()
     return """
         <h1>Participant Successfully Added!</h1>
+      """
+  elif event.attending == True:
+    event.current_participant_count -= 1
+    event.attending = False
+    db.session.commit()
+    return """
+        <h1>Participant Removed!</h1>
       """
   else:
     return """

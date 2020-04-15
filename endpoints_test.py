@@ -52,6 +52,40 @@ class TestApp(unittest.TestCase):
         self.assertEqual(json_data['data'][-1]['current_participant_count'], 6)
         self.assertEqual(json_data['data'][-1]['attending'], True)
 
+    def test_patch_twice_toggles_attending_to_false(self):
+        headers = {'Content-Type': 'application/json'}
+
+        event = Event.query.first()
+        event.id = 2
+        event.current_participant_count = 5
+        event.max_participant_count = 8 
+
+        # first patch
+        response = self.app.patch('/api/v1/events/2', headers=headers)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.app.get('/api/v1/events', headers=headers)
+        json_data = json.loads(response.data)
+
+
+        # increments participant count by 1
+        self.assertEqual(json_data['data'][-1]['current_participant_count'], 6)
+
+        # attending changes to true
+        self.assertEqual(json_data['data'][-1]['attending'], True)
+        
+        # second patch
+        response2 = self.app.patch('/api/v1/events/2', headers=headers)
+        self.assertEqual(response2.status_code, 200)
+
+        response2 = self.app.get('/api/v1/events', headers=headers)
+        json_data2 = json.loads(response2.data)
+        
+        # participant leaves, so count decreases back to original
+        self.assertEqual(json_data2['data'][-1]['current_participant_count'], 5)
+        
+        # attending toggles to false
+        self.assertEqual(json_data2['data'][-1]['attending'], False)
 
     def test_post_events(self):
         headers = {'Content-Type': 'application/json'}
