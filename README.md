@@ -1,44 +1,84 @@
 # GameOn Backend Api
-The Backend app for GameOn is hosted on Heroku, written in Python, using the Flask framework with data accessed through MongoDB.
-__GameOnBE: 'https://game-on-pro.herokuapp.com'__
+Host:       Heroku 
+Language:   Python
+Framework:  Flask 
+Database:   SQLAlchemy
+GameOnBE: 'https://game-on-pro.herokuapp.com'
 
 ### Formatting
-The GameOnBE App follows REST API convention, displaying data in JavaScript Object Notation(JSON).
+- Base URL for all endpoints: 'http://game-on-pro.herokuapp.com'
+- Each collection is returned within a hash that has a key of 'data' and a value of an array, containing objects returned in a hash format.
+- Example:
+_request_: GET 'http://game-on-pro.herokuapp.com/api/v1/events'
+_response body_: { 
+  "data": [
+    {
+      "activity": "Soccer",
+      "attending": true,
+      "current_participant_count": 2,
+      "date": "2020-04-15",
+      "description": "",
+      "duration": "30 min",
+      "equipment": "ball",
+      "id": 49,
+      "lat_long": "39.7365497,-104.9899995",
+      "location": "Civic Center Park",
+      "max_participant_count": 2,
+      "skill_level": "Just for fun!",
+      "start_time": "6:00AM" 
+    }
+  ]
+}
 
 ### Getting Started
-We currently have data available for activities (index, show), 10 instances pre-populated within our Database (MongoDB). 
-
-### Future Additions
-- Events (Index, Show, Create, Destroy)
-- Feature: Activities can be added when creating New Events.
+- To consume GameOnBE data, we will send requests to: 'https://game-on-pro.herokuapp.com/api/v1/events'
+- Instructions for CRUD endpoints include: [GET, POST, PATCH, DELETE]
 
 ### Endpoints
-__Events Index__
-- Method: ["GET"]
-- URI: '/api/v1/events'
-- Display: Lists all Events and attributes:
+**Seed Events**
+- _Method_: ["GET"]
+- _URI_: '/api/v1/seed'
+- _Seeds_: Three pre-created sample events.
+- FOR TESTING AND DEVELOPMENT ONLY.
+
+**Events Index**
+- _Method_: ["GET"]
+- _URI_: '/api/v1/events'
+- _Returns_: All Events and attributes:
 	- :id
 	- :date
   - :activity
-	- :description
+  - :description
   - :location
+  - :lat_long
   - :start_time
   - :duration
   - :max_participant_count
   - :current_participant_count
-  - :lat_long (in process)
+  - :skill_level
 
-__Create Event__
-- Method: ["POST"]
-- URI: '/api/v1/events'
-- Creates new event with given params
+**Events Index By Date**
+- _Method_: ["GET"]
+- _URI_: '/api/v1/events?date=YYYY-MM-DD'
+- _Returns_: All Events and attributes associated with the date entered. Date specified in query params.
 
-__Create Seeds__
-- Method: ["GET"]
-- URI: '/api/v1/seed'
-- Destroys all events in DB and seeds events in seed file (3 right now)
+**Events New**
+- _Method_: ["POST"]
+- _URI_: '/api/v1/events'
+- _Creates_: New event and assigns all default attributes.
+- _Additional Info_: All attributes and information must be entered into the params, saparated by '&'
+- All attributes are optional, EXCEPT **'location'**, Google API will return a 400 response and the instance will not be saved.
+- _Example_:
+POST '/api/v1/events?date=2020-04-13&time=1230&duration=1:30&description=playing volleyball at wash park, need 4!&location=Wash Park&current_participant_count=6&max_participant_count=10&activity=volley ball'
+
+**Events Update**
+- _Method_: ["PATCH"]
+- _URI_: '/api/v1/events/:id'
+- _Updates_: Updates Event with corresponding :id. This will not update Event information. Visiting this endpoint will increment or decrement 'current_participant_count' based on the 'attending' value.
+- _Example_: 
+if event.attending == True => return {event.attending = False, current_participant_count -= 1}
   
-__Activities Show__
-- Method: ["GET"]
-- URI: '/activities/:id'
-- Display: Activity info for corresponding :id
+**Events Delete**
+- _Method_: ["DELETE"]
+- _URI_: '/api/v1/events/:id'
+- _Deletes_: Deletes Event instance with corresponding :id
