@@ -20,12 +20,13 @@ class TestApp(unittest.TestCase):
         headers = {'Content-Type': 'application/json'}
        
         response = self.app.get('/api/v1/events', headers=headers)
-        
+
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers['Content-Type'], 'application/json')
         
         json_data = json.loads(response.data)
-        self.assertEqual(json_data['data'][0]['activity'], 'Basketball')
+
+        self.assertEqual(json_data['data'][0]['activity'], 'Kickball')
         
         array_of_keys = list(json_data['data'][0].keys())
         
@@ -39,20 +40,47 @@ class TestApp(unittest.TestCase):
         event = Event.query.first()
         event.id = 1
         event.current_participant_count = 5
-        event.max_participant_count = 8       
+        event.max_participant_count = 8   
+
         response = self.app.patch('/api/v1/events/1', headers=headers)
 
-        # self.assertEqual(event.current_participant_count, 6)
-        # self.assertEqual(event.attending, True)
         self.assertEqual(response.status_code, 200)
+
+        response = self.app.get('/api/v1/events', headers=headers)
+        json_data = json.loads(response.data)
+
+        self.assertEqual(json_data['data'][-1]['current_participant_count'], 6)
+        self.assertEqual(json_data['data'][-1]['attending'], True)
+
 
     def test_post_events(self):
         headers = {'Content-Type': 'application/json'}
 
         response = self.app.post('/api/v1/events?date=2020-04-13&time=1230&duration=1:30&description=playing volleyball at wash park. need 4!&location=Wash Park&current_participant_count=6&max_participant_count=10&activity=volley ball&equipment=net, ball&skill_level=Beginner', headers=headers)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.app.get('/api/v1/events', headers=headers)
+        json_data = json.loads(response.data)
+
+        self.assertEqual(len(json_data['data']), 3)
+
+    
+    def test_delete_events(self):
+        headers = {'Content-Type': 'application/json'}
+ 
+        response = self.app.get('/api/v1/events', headers=headers)
+        json_data = json.loads(response.data)
+        
+        self.assertEqual(len(json_data['data']), 3)
+
+        response = self.app.delete('/api/v1/events/1', headers=headers)
 
         self.assertEqual(response.status_code, 200)
 
+        response = self.app.get('/api/v1/events', headers=headers)
+        json_data = json.loads(response.data)
+
+        self.assertEqual(len(json_data['data']), 2)
 
 # json_data = json.loads(response.data)
         # print(json_data)
