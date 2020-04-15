@@ -48,7 +48,7 @@ _response body_: {
 	- :id
 	- :date
   - :activity
-	- :description
+  - :description
   - :location
   - :start_time
   - :duration
