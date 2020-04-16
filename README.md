@@ -27,7 +27,7 @@ Jordan Holtkamp https://github.com/jordanholtkamp
 - Each collection is returned within a hash that has a key of 'data' and a value of an array, containing objects returned in a hash format.
 - Example:
 _request_: GET http://game-on-pro.herokuapp.com/api/v1/events
-_response body_: { 
+_response body_: ```{ 
   "data": [
     {
       "activity": "Soccer",
@@ -45,7 +45,7 @@ _response body_: {
       "start_time": "6:00AM" 
     }
   ]
-}
+}```
 
 ### Getting Started
 - To consume GameOnBE data, we will send requests to: https://game-on-pro.herokuapp.com/api/v1/events
