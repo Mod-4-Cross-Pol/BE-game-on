@@ -2,14 +2,31 @@
 Host:       Heroku 
 Language:   Python
 Framework:  Flask 
-Database:   SQLAlchemy
-GameOnBE: 'https://game-on-pro.herokuapp.com'
+Database:   PostgreSQL
+GameOnBE: https://game-on-pro.herokuapp.com
+
+### Overview
+GameOn Backend is an API only app that allows users to interact with our database so they can easily create, read, update, and delete events. 
+
+### Backend Repo
+https://github.com/Mod-4-Cross-Pol/BE-game-on
+
+### Frontend Repo
+https://github.com/Mod-4-Cross-Pol/FE_game_on
+
+### Front End Project Creators:
+Zachary Nemeroff https://github.com/ZaneMeroff<br>
+Ryan Novak https://github.com/ryan-novak
+
+### Back End Project Creators:
+Phil DeLong https://github.com/philjdelong<br>
+Jordan Holtkamp https://github.com/jordanholtkamp
 
 ### Formatting
-- Base URL for all endpoints: 'http://game-on-pro.herokuapp.com'
+- Base URL for all endpoints: http://game-on-pro.herokuapp.com
 - Each collection is returned within a hash that has a key of 'data' and a value of an array, containing objects returned in a hash format.
 - Example:
-_request_: GET 'http://game-on-pro.herokuapp.com/api/v1/events'
+_request_: GET http://game-on-pro.herokuapp.com/api/v1/events
 _response body_: { 
   "data": [
     {
@@ -31,7 +48,7 @@ _response body_: {
 }
 
 ### Getting Started
-- To consume GameOnBE data, we will send requests to: 'https://game-on-pro.herokuapp.com/api/v1/events'
+- To consume GameOnBE data, we will send requests to: https://game-on-pro.herokuapp.com/api/v1/events
 - Instructions for CRUD endpoints include: [GET, POST, PATCH, DELETE]
 
 ### Endpoints
