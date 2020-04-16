@@ -28,23 +28,23 @@ Jordan Holtkamp https://github.com/jordanholtkamp
 - Example:
 _request_: GET http://game-on-pro.herokuapp.com/api/v1/events
 _response body_: <br>```{ 
-  "data": [<br>
-    {<br>
-      "activity": "Soccer",<br>
-      "attending": true,<br>
-      "current_participant_count": 2,<br>
-      "date": "2020-04-15",<br>
-      "description": "",<br>
-      "duration": "30 min",<br>
-      "equipment": "ball",<br>
-      "id": 49,<br>
-      "lat_long": "39.7365497,-104.9899995",<br>
-      "location": "Civic Center Park",<br>
-      "max_participant_count": 2,<br>
-      "skill_level": "Just for fun!",<br>
-      "start_time": "6:00AM" <br>
-    }<br>
-  ]<br>
+  "data": [
+    {
+      "activity": "Soccer",
+      "attending": true,
+      "current_participant_count": 2,
+      "date": "2020-04-15",
+      "description": "",
+      "duration": "30 min",
+      "equipment": "ball",
+      "id": 49,
+      "lat_long": "39.7365497,-104.9899995",
+      "location": "Civic Center Park",
+      "max_participant_count": 2,
+      "skill_level": "Just for fun!",
+      "start_time": "6:00AM" 
+    }
+  ]
 }```
 
 ### Getting Started
