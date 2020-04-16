@@ -4,8 +4,9 @@ Host:       Heroku
 Language:   Python
 Framework:  Flask 
 Database:   PostgreSQL
-GameOnBE:   https://game-on-pro.herokuapp.com
 ```
+
+GameOnBE Production Link:   https://game-on-pro.herokuapp.com
 
 ### Overview
 GameOn Backend is an API only app that allows users to interact with our database so they can easily create, read, update, and delete events. 
